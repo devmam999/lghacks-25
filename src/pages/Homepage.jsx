@@ -72,7 +72,7 @@ const Homepage = () => {
                     <div className="flex justify-center space-x-4">
                         {/* Add Task Button (Blue) */}
                         <button
-                            className="px-8 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 hover:scale-105"
+                            className="px-8 py-3 dark:bg-gray-500 text-white rounded-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 hover:scale-105"
                             onClick={handleAddTask}
                         >
                             Add Task
@@ -80,7 +80,7 @@ const Homepage = () => {
 
                         {/* Finish Button (Green) */}
                         <button
-                            className="px-8 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-300 hover:scale-105"
+                            className="px-8 py-3 dark:bg-gray-500 text-white rounded-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-300 hover:scale-105"
                             onClick={handleFinish}
                         >
                             Finish
