@@ -63,7 +63,7 @@ const Homepage = () => {
                         type="text"
                         id="timeInput"
                         placeholder="Time needed (e.g., 2 hours)"
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 mb-6 bg-white dark:bg-gray-800 dark:border-gray-700 dark:text-white"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 mb-6 bg-white dark:bg-gray-500 dark:border-gray-700 dark:text-white"
                         value={time}
                         onChange={(e) => setTime(e.target.value)}
                     />
