@@ -5,17 +5,20 @@ const Homepage = () => {
     const [task, setTask] = useState('');
     // State to manage the time input
     const [time, setTime] = useState('');
+    // State to manage the preferred time period input
+    const [preferredTime, setPreferredTime] = useState('');
     // State to store the list of tasks
     const [tasks, setTasks] = useState([]);
 
     // Function to handle adding a task
     const handleAddTask = () => {
         if (task.trim() && time.trim()) {
-            // Add the task to the list
-            setTasks([...tasks, { task, time }]);
+            // Add the task to the list, including the preferred time if provided
+            setTasks([...tasks, { task, time, preferredTime }]);
             // Clear the input fields
             setTask('');
             setTime('');
+            setPreferredTime('');
         } else {
             alert('Please enter both a task and the time needed!');
         }
@@ -26,7 +29,6 @@ const Homepage = () => {
         setTasks([]); // Clear all tasks
         alert('All tasks completed!');
     };
-
 
     return (
         <div className={`min-h-screen w-full`}>
@@ -63,16 +65,26 @@ const Homepage = () => {
                         type="text"
                         id="timeInput"
                         placeholder="Time needed (e.g., 2 hours)"
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 mb-6 bg-white dark:bg-gray-800 dark:border-gray-700 dark:text-white"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4 bg-white dark:bg-gray-800 dark:border-gray-700 dark:text-white"
                         value={time}
                         onChange={(e) => setTime(e.target.value)}
+                    />
+
+                    {/* Preferred Time Input (Optional) */}
+                    <input
+                        type="text"
+                        id="preferredTimeInput"
+                        placeholder="Preferred time period (optional, e.g., Morning)"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 mb-6 bg-white dark:bg-gray-800 dark:border-gray-700 dark:text-white"
+                        value={preferredTime}
+                        onChange={(e) => setPreferredTime(e.target.value)}
                     />
 
                     {/* Buttons */}
                     <div className="flex justify-center space-x-4">
                         {/* Add Task Button (Blue) */}
                         <button
-                            className="px-8 py-3 dark:bg-gray-500 text-white rounded-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 hover:scale-105"
+                            className="px-8 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 hover:scale-105"
                             onClick={handleAddTask}
                         >
                             Add Task
@@ -80,7 +92,7 @@ const Homepage = () => {
 
                         {/* Finish Button (Green) */}
                         <button
-                            className="px-8 py-3 dark:bg-gray-500 text-white rounded-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-300 hover:scale-105"
+                            className="px-8 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-300 hover:scale-105"
                             onClick={handleFinish}
                         >
                             Finish
@@ -96,6 +108,9 @@ const Homepage = () => {
                             {tasks.map((taskItem, index) => (
                                 <li key={index} className="p-4 rounded-lg shadow-sm bg-gray-50 dark:bg-gray-800 dark:text-white">
                                     <span className="font-semibold">{taskItem.task}</span> - <span className="text-gray-600 dark:text-gray-400">{taskItem.time}</span>
+                                    {taskItem.preferredTime && (
+                                        <span className="text-gray-600 dark:text-gray-400"> (Preferred: {taskItem.preferredTime})</span>
+                                    )}
                                 </li>
                             ))}
                         </ul>
