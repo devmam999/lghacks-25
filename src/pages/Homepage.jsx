@@ -95,7 +95,7 @@ const Homepage = () => {
                             className="px-8 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-300 hover:scale-105"
                             onClick={handleFinish}
                         >
-                            Finish
+                            Finish Adding Tasks
                         </button>
                     </div>
                 </div>
