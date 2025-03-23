@@ -58,8 +58,17 @@ const Homepage = () => {
 
     // Function to handle finishing tasks
     const handleFinish = () => {
-        setTasks([]); // Clear all tasks
-        alert('All tasks completed!');
+        const confirmClear = window.confirm('Are you sure you want to finish and clear all tasks?');
+        if (confirmClear) {
+            setTasks([]); // Clear all tasks
+            alert('All tasks completed!');
+        }
+    };
+
+    // Function to delete a task
+    const handleDeleteTask = (index) => {
+        const updatedTasks = tasks.filter((_, i) => i !== index);
+        setTasks(updatedTasks);
     };
 
     return (
@@ -153,7 +162,7 @@ const Homepage = () => {
 
                                 {/* Finish Button (Green) */}
                                 <button
-                                    className="px-8 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-300 hover:scale-105"
+                                    className="px-8 py-3 bg-gray-500 text-white rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-300 hover:scale-105"
                                     onClick={handleFinish}
                                 >
                                     Finish Adding Tasks
@@ -180,11 +189,23 @@ const Homepage = () => {
                             {tasks.length > 0 ? (
                                 <ul className="space-y-4">
                                     {tasks.map((taskItem, index) => (
-                                        <li key={index} className="p-4 rounded-lg shadow-sm bg-gray-50 dark:bg-gray-800 dark:text-white">
-                                            <span className="font-semibold">{taskItem.task}</span> - <span className="text-gray-600 dark:text-gray-400">{taskItem.time}</span>
-                                            {taskItem.preferredTime && (
-                                                <span className="text-gray-600 dark:text-gray-400"> (Preferred: {taskItem.preferredTime})</span>
-                                            )}
+                                        <li
+                                            key={index}
+                                            className="group p-4 rounded-lg shadow-sm bg-gray-50 dark:bg-gray-800 dark:text-white flex justify-between items-center"
+                                        >
+                                            <div>
+                                                <span className="font-semibold">{taskItem.task}</span> - <span className="text-gray-600 dark:text-gray-400">{taskItem.time}</span>
+                                                {taskItem.preferredTime && (
+                                                    <span className="text-gray-600 dark:text-gray-400"> (Preferred: {taskItem.preferredTime})</span>
+                                                )}
+                                            </div>
+                                            {/* Delete Button (Visible on Hover) */}
+                                            <button
+                                                className="text-red-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:text-red-600 p-0 bg-transparent border-none cursor-pointer"
+                                                onClick={() => handleDeleteTask(index)}
+                                            >
+                                                ×
+                                            </button>
                                         </li>
                                     ))}
                                 </ul>
