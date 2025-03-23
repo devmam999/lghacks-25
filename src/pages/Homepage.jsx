@@ -7,6 +7,8 @@ const Homepage = () => {
     const [time, setTime] = useState('');
     // State to manage the preferred time period input
     const [preferredTime, setPreferredTime] = useState('');
+    // State to manage the overall time restriction
+    const [timeRestriction, setTimeRestriction] = useState('');
     // State to store the list of tasks
     const [tasks, setTasks] = useState([]);
 
@@ -44,8 +46,23 @@ const Homepage = () => {
                     This website helps you plan your day effectively and eliminates procrastination with the Pomodoro Technique.
                 </div>
 
-                {/* Task Input and Buttons */}
+                {/* Time Restriction Input (Overall) */}
                 <div className="text-center mt-16 w-full max-w-2xl">
+                    <label htmlFor="timeRestrictionInput" className="block text-lg font-medium mb-4 text-gray-900 dark:text-white">
+                        Do you have any time restrictions today? (Optional)
+                    </label>
+                    <input
+                        type="text"
+                        id="timeRestrictionInput"
+                        placeholder="Enter time restrictions (e.g., No tasks after 6 PM)"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 mb-6 bg-white dark:bg-gray-800 dark:border-gray-700 dark:text-white"
+                        value={timeRestriction}
+                        onChange={(e) => setTimeRestriction(e.target.value)}
+                    />
+                </div>
+
+                {/* Task Input and Buttons */}
+                <div className="text-center mt-8 w-full max-w-2xl">
                     <label htmlFor="taskInput" className="block text-lg font-medium mb-4 text-gray-900 dark:text-white">
                         What are your tasks for today?
                     </label>
@@ -99,6 +116,16 @@ const Homepage = () => {
                         </button>
                     </div>
                 </div>
+
+                {/* Display Time Restriction (Overall) */}
+                {timeRestriction && (
+                    <div className="mt-12 w-full max-w-2xl">
+                        <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Time Restrictions</h2>
+                        <p className="p-4 rounded-lg shadow-sm bg-red-100 dark:bg-red-900 text-red-900 dark:text-red-100">
+                            ⚠️ {timeRestriction}
+                        </p>
+                    </div>
+                )}
 
                 {/* Display Tasks */}
                 <div className="mt-12 w-full max-w-2xl">
