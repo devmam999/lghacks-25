@@ -1,5 +1,32 @@
 import React, { useState } from 'react';
 
+// Popup Component
+const ConfirmationPopup = ({ message, onConfirm, onCancel }) => {
+    return (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
+                <p className="text-gray-900 dark:text-white mb-4">{message}</p>
+                <div className="flex justify-end space-x-4">
+                    {/* Cancel Button (Red, No Hover Change) */}
+                    <button
+                        className="px-4 py-2 bg-red-500 text-white rounded-lg focus:outline-none hover:scale-105 transition-all duration-300 cursor-pointer"
+                        onClick={onCancel}
+                    >
+                        Cancel
+                    </button>
+                    {/* Confirm Button (Black, Hovers Green) */}
+                    <button
+                        className="px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-green-600 focus:outline-none hover:scale-105 transition-all duration-300 cursor-pointer"
+                        onClick={onConfirm}
+                    >
+                        Confirm
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+};
+
 const Homepage = () => {
     // State to manage the task input
     const [task, setTask] = useState('');
@@ -11,6 +38,9 @@ const Homepage = () => {
     // State to manage validation errors
     const [timeError, setTimeError] = useState('');
     const [preferredTimeError, setPreferredTimeError] = useState('');
+
+    // State to manage the confirmation popup
+    const [showConfirmation, setShowConfirmation] = useState(false);
 
     // Function to validate time range (e.g., 2 hours, 30 minutes)
     const validateTimeRange = (input) => {
@@ -58,11 +88,18 @@ const Homepage = () => {
 
     // Function to handle finishing tasks
     const handleFinish = () => {
-        const confirmClear = window.confirm('Are you sure you want to finish and clear all tasks?');
-        if (confirmClear) {
-            setTasks([]); // Clear all tasks
-            alert('All tasks completed!');
-        }
+        setShowConfirmation(true); // Show the confirmation popup
+    };
+
+    // Function to confirm finishing tasks
+    const confirmFinish = () => {
+        setTasks([]); // Clear all tasks
+        setShowConfirmation(false); // Hide the popup
+    };
+
+    // Function to cancel finishing tasks
+    const cancelFinish = () => {
+        setShowConfirmation(false); // Hide the popup
     };
 
     // Function to delete a task
@@ -152,17 +189,17 @@ const Homepage = () => {
 
                             {/* Buttons */}
                             <div className="flex justify-center space-x-4">
-                                {/* Add Task Button (Blue) */}
+                                {/* Add Task Button (Black, Hovers Blue) */}
                                 <button
-                                    className="px-8 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 hover:scale-105"
+                                    className="px-8 py-3 bg-gray-900 text-white rounded-lg hover:bg-blue-600 focus:outline-none transition-all duration-300 hover:scale-105 cursor-pointer"
                                     onClick={handleAddTask}
                                 >
                                     Add Task
                                 </button>
 
-                                {/* Finish Button (Green) */}
+                                {/* Finish Button (Black, Hovers Green) */}
                                 <button
-                                    className="px-8 py-3 bg-gray-500 text-white rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-300 hover:scale-105"
+                                    className="px-8 py-3 bg-gray-900 text-white rounded-lg hover:bg-green-600 focus:outline-none transition-all duration-300 hover:scale-105 cursor-pointer"
                                     onClick={handleFinish}
                                 >
                                     Finish Adding Tasks
@@ -216,6 +253,15 @@ const Homepage = () => {
                     </div>
                 </div>
             </div>
+
+            {/* Confirmation Popup */}
+            {showConfirmation && (
+                <ConfirmationPopup
+                    message="Are you sure you want to finish and clear all tasks?"
+                    onConfirm={confirmFinish}
+                    onCancel={cancelFinish}
+                />
+            )}
         </div>
     )
 }
