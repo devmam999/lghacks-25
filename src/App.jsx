@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Homepage from "./pages/Homepage"
+import Schedule from "./pages/Schedule"
 
 function App() {
   
@@ -8,6 +9,7 @@ function App() {
     <BrowserRouter>
     <Routes>
       <Route path="/" element={<Homepage />} />
+      <Route path="/schedule" element={<Schedule/>} />
     </Routes>
     </BrowserRouter>
   )
